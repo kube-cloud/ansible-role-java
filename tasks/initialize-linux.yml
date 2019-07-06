@@ -1,48 +1,48 @@
 ---
 
--   name: Add Debian based requested repositories if exists 
-    apt_repository:
-     repo: "{{ item.repo }}"
-     state: present
-     update_cache: yes
-    with_items: "{{ __repositories }}"
-    when:
-     - item.os is defined
-     - __repositories is defined
-     - item.os == ansible_os_family or item.os == ansible_distribution
-     - ansible_os_family == "Debian"
-     - item.v_major == ansible_distribution_major_version
+- name: Add Debian based requested repositories if exists
+  apt_repository:
+   repo: "{{ item.repo }}"
+   state: present
+   update_cache: true
+  with_items: "{{ __repositories }}"
+  when:
+   - item.os is defined
+   - __repositories is defined
+   - item.os == ansible_os_family or item.os == ansible_distribution
+   - ansible_os_family == "Debian"
+   - item.v_major == ansible_distribution_major_version
 
--   name: Add RedHat based requested repositories if exists 
-    yum_repository:
-     name: "{{ item.name }}"
-     baseurl: "{{ item.repo }}"
-     enabled: "yes"
-     enablegroups: "yes"
-     keepalive: "{{ item.keepalive | default('yes') }}"
-     keepcache: "{{ item.keepcache | default('1') }}"
-     metadata_expire: "{{ item.metadata_expire | default('21600') }}"
-     password: "{{ item.password | default('') }}"
-     username: "{{ item.username | default('') }}"
-     timeout: "{{ item.timeout | default('30') }}"
-     sslverify: "{{ item.sslverify | default('yes') }}"
-     sslclientkey: "{{ item.sslclientkey | default('') }}"
-     sslclientcert: "{{ item.sslclientcert | default('') }}"
-     reposdir: "{{ item.reposdir | default('/etc/yum.repos.d') }}"
-     state: present
-    with_items: "{{ __repositories }}"
-    when:
-     - item.os is defined
-     - __repositories is defined
-     - item.os == ansible_os_family or item.os == ansible_distribution
-     - ansible_os_family == "RedHat"
-     - item.v_major == ansible_distribution_major_version
+- name: Add RedHat based requested repositories if exists
+  yum_repository:
+   name: "{{ item.name }}"
+   baseurl: "{{ item.repo }}"
+   enabled: "yes"
+   enablegroups: "yes"
+   keepalive: "{{ item.keepalive | default('yes') }}"
+   keepcache: "{{ item.keepcache | default('1') }}"
+   metadata_expire: "{{ item.metadata_expire | default('21600') }}"
+   password: "{{ item.password | default('') }}"
+   username: "{{ item.username | default('') }}"
+   timeout: "{{ item.timeout | default('30') }}"
+   sslverify: "{{ item.sslverify | default('yes') }}"
+   sslclientkey: "{{ item.sslclientkey | default('') }}"
+   sslclientcert: "{{ item.sslclientcert | default('') }}"
+   reposdir: "{{ item.reposdir | default('/etc/yum.repos.d') }}"
+   state: present
+  with_items: "{{ __repositories }}"
+  when:
+   - item.os is defined
+   - __repositories is defined
+   - item.os == ansible_os_family or item.os == ansible_distribution
+   - ansible_os_family == "RedHat"
+   - item.v_major == ansible_distribution_major_version
 
--   name: Define installation directories for Debian family
-    set_fact:
-     jvm_install_dir: "/usr/lib/jvm"
+- name: Define installation directories for Debian family
+  set_fact:
+   jvm_install_dir: "/usr/lib/jvm"
 
--   name: Ensure final JVM installation directory exists
-    file:
-     path: "{{ jvm_install_dir }}"
-     state: directory
+- name: Ensure final JVM installation directory exists
+  file:
+   path: "{{ jvm_install_dir }}"
+   state: directory

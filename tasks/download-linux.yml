@@ -6,7 +6,7 @@
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
-  when: 
+  when:
    - item.v_major|int == 8 or item.v_major|int == 7
    - item.implementation is defined and item.implementation == "OPENJDK"
    - item.from_repo is not defined or not item.from_repo
@@ -17,7 +17,7 @@
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
-  when: 
+  when:
    - item.v_major|int == 9 or (item.v_major|int == 10 and not item.v_minor)
    - item.implementation is defined and item.implementation == "OPENJDK"
    - item.from_repo is not defined or not item.from_repo
@@ -28,7 +28,7 @@
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
-  when: 
+  when:
    - item.v_major|int == 10 and item.v_minor
    - item.implementation is defined and item.implementation == "OPENJDK"
    - item.from_repo is not defined or not item.from_repo
@@ -39,7 +39,7 @@
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
-  when: 
+  when:
    - item.v_major|int == 11 and not item.v_minor
    - item.implementation is defined and item.implementation == "OPENJDK"
    - item.from_repo is not defined or not item.from_repo
@@ -50,7 +50,7 @@
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
-  when: 
+  when:
    - (item.v_major|int == 11 and item.v_minor) or item.v_major|int == 12
    - item.implementation is defined and item.implementation == "OPENJDK"
    - item.from_repo is not defined or not item.from_repo

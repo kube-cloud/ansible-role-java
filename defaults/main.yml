@@ -2,15 +2,15 @@
 
 # default Repository to use
 __repositories:
- - repo : ppa:openjdk-r/ppa
+ - repo: ppa:openjdk-r/ppa
    os: Debian
    v_major: 18
 
-# Default JDK packages list to install from repo  
+# Default JDK packages list to install from repo
 __java_packages:
- 
+
  # JDK packages to install from repo version 8
  - from_repo: true
    v_major: 8
    alternative_priority: 100
-   implementation:  OPENJDK
+   implementation: OPENJDK

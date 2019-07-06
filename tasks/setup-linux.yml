@@ -1,58 +1,58 @@
 ---
 
--   name: Install RedHat Based OpenJDK from Repo
-    yum:
-     name: "java-1.{{ item.v_major }}.0-openjdk"
-     state: present
-    with_items: "{{ __java_packages }}"
-    when:   
-    - ansible_os_family == "RedHat"
-    - item.implementation is defined and item.implementation == "OPENJDK"
-    - item.from_repo
+- name: Install RedHat Based OpenJDK from Repo
+  yum:
+   name: "java-1.{{ item.v_major }}.0-openjdk"
+   state: present
+  with_items: "{{ __java_packages }}"
+  when:
+   - ansible_os_family == "RedHat"
+   - item.implementation is defined and item.implementation == "OPENJDK"
+   - item.from_repo
 
--   name: Install Debian Based OpenJDK from Repo
-    apt:
-     name: "openjdk-{{ item.v_major }}-jdk"
-     state: present
-    with_items: "{{ __java_packages }}"
-    when:   
-    - ansible_os_family == "Debian"
-    - item.implementation is defined and item.implementation == "OPENJDK"
-    - item.from_repo
+- name: Install Debian Based OpenJDK from Repo
+  apt:
+   name: "openjdk-{{ item.v_major }}-jdk"
+   state: present
+  with_items: "{{ __java_packages }}"
+  when:
+   - ansible_os_family == "Debian"
+   - item.implementation is defined and item.implementation == "OPENJDK"
+   - item.from_repo
 
--   name: Create Downloaded archive installation directories
-    file:
-     path: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk"
-     state: directory
-    with_items: "{{ __java_packages }}"
-    when:
-     - item.implementation is defined and item.implementation == "OPENJDK"
-     - not item.from_repo
+- name: Create Downloaded archive installation directories
+  file:
+   path: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk"
+   state: directory
+  with_items: "{{ __java_packages }}"
+  when:
+   - item.implementation is defined and item.implementation == "OPENJDK"
+   - not item.from_repo
 
--   name: Unarchive Downloaded Open JDK archives
-    unarchive:
-     src: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
-     dest: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk"
-      
-     # Create allow idempotency capabilities to unarchive
-     creates: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk/bin/java"
-     remote_src: yes
-     extra_opts:
-      - --strip-components=1
-    with_items: "{{ __java_packages }}"
-    when:
-     - item.implementation is defined and item.implementation == "OPENJDK"
-     - not item.from_repo
+- name: Unarchive Downloaded Open JDK archives
+  unarchive:
+   src: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
+   dest: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk"
 
--   name: Set the Java Alternatives
-    alternatives:
-     name: "{{ item[1] }}"
-     link: "/usr/bin/{{ item[1] }}"
-     path: "{{ jvm_install_dir }}/java-{{ item[0].v_major }}{{ item[0].v_minor }}-openjdk/bin/{{ item[1] }}"
-     priority: "{{ item[0].alternative_priority }}"
-    with_nested:
-     - "{{ __java_packages }}"
-     - ['java', 'javac', 'javadoc', 'jar', 'jarsigner', 'javap', 'jcmd', 'jconsole', 'keytool', 'rmiregistry', 'rmic', 'rmid']
-    when:
-     - item[0].implementation is defined and item[0].implementation == "OPENJDK"
-     - not item[0].from_repo
+   # Create allow idempotency capabilities to unarchive
+   creates: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk/bin/java"
+   remote_src: true
+   extra_opts:
+    - --strip-components=1
+  with_items: "{{ __java_packages }}"
+  when:
+   - item.implementation is defined and item.implementation == "OPENJDK"
+   - not item.from_repo
+
+- name: Set the Java Alternatives
+  alternatives:
+   name: "{{ item[1] }}"
+   link: "/usr/bin/{{ item[1] }}"
+   path: "{{ jvm_install_dir }}/java-{{ item[0].v_major }}{{ item[0].v_minor }}-openjdk/bin/{{ item[1] }}"
+   priority: "{{ item[0].alternative_priority }}"
+  with_nested:
+   - "{{ __java_packages }}"
+   - ['java', 'javac', 'javadoc', 'jar', 'jarsigner', 'javap', 'jcmd', 'jconsole', 'keytool', 'rmiregistry', 'rmic', 'rmid']
+  when:
+   - item[0].implementation is defined and item[0].implementation == "OPENJDK"
+   - not item[0].from_repo

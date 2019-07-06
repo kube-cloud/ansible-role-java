@@ -1,0 +1,38 @@
+---
+
+# Initialize the Language
+language: python
+
+# Declare Docker Service to be used in the build
+services: docker
+
+# Environments variables for test
+env:
+
+    # Global
+    global:
+        - ROLE_NAME: java
+    matrix:
+        - MOLECULE_DISTRO: centos7
+        - MOLECULE_DISTRO: ubuntu18
+
+# Installation actions
+install:
+
+    # Install Test tools
+    - pip install molecule docker
+
+before_script:
+    - cd ../
+    - mv ansible-role-$ROLE_NAME jetune.$ROLE_NAME
+    - cd jetune.$ROLE_NAME
+
+# Test scripts
+script:
+
+    # Run Tests
+    - molecule test
+
+# Norifications
+notifications:
+    webhooks: https://galaxy.ansible.com/api/v1/notifications/
