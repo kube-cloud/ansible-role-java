@@ -1,0 +1,19 @@
+---
+# Install Java Development KIT main tasks on Supported system
+- name: Install Java Development KIT main tasks on Supported system
+  block:
+   
+   # Include Initialize tasks (Linux)
+   - name: Include Initialize tasks
+     include_tasks: "initialize-linux.yml"
+   
+   # Include Download tasks (Linux)
+   - name: Include OS Family specific Setup tasks
+     include_tasks: "download-linux.yml"
+   
+   # Include Setup tasks (Linux)
+   - name: Include OS Family specific Setup tasks
+     include_tasks: "setup-linux.yml"
+   
+  when:
+  - ansible_os_family == "RedHat" or ansible_os_family == "Debian" or ansible_os_family == "Suse"
