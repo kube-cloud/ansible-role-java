@@ -1,6 +1,7 @@
 ---
 galaxy_info:
     author: jetune
+    role_name: java
     description: Java installation ansible role
     company: "Kube Cloud"
     issue_tracker_url: https://github.com/kube-cloud/ansible-role-java.git
