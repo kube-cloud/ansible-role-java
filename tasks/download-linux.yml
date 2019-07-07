@@ -2,7 +2,8 @@
 
 - name: Download Open JDK (7ux or 8ux)
   get_url:
-   url: "https://download.java.net/openjdk/jdk{{ item.v_major }}u{{ item.v_minor }}/ri/openjdk-{{ item.v_major }}u{{ item.v_minor }}-b{{ item.build }}-{{ item.os }}-{{ item.arch }}-{{ item.date }}.tar.gz"
+   url: "https://download.java.net/openjdk/jdk{{ item.v_major }}u{{ item.v_minor }}/ri/\
+   openjdk-{{ item.v_major }}u{{ item.v_minor }}-b{{ item.build }}-{{ item.os }}-{{ item.arch }}-{{ item.date }}.tar.gz"
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
@@ -13,7 +14,8 @@
 
 - name: Download Open JDK (9.x.y and 10)
   get_url:
-   url: "https://download.java.net/java/GA/jdk{{ item.v_major }}/{{ item.v_major }}{{ item.v_minor }}/binaries/openjdk-{{ item.v_major }}{{ item.v_minor }}_{{ item.os }}-{{ item.arch }}_bin.tar.gz"
+   url: "https://download.java.net/java/GA/jdk{{ item.v_major }}/{{ item.v_major }}{{ item.v_minor }}\
+   /binaries/openjdk-{{ item.v_major }}{{ item.v_minor }}_{{ item.os }}-{{ item.arch }}_bin.tar.gz"
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
@@ -24,7 +26,8 @@
 
 - name: Download Open JDK (10.x.y)
   get_url:
-   url: "https://download.java.net/java/GA/jdk{{ item.v_major }}/{{ item.v_major }}{{ item.v_minor }}/{{ item.hash }}/{{ item.build }}/openjdk-{{ item.v_major }}{{ item.v_minor }}_{{ item.os }}-{{ item.arch }}_bin.tar.gz"
+   url: "https://download.java.net/java/GA/jdk{{ item.v_major }}/{{ item.v_major }}{{ item.v_minor }}\
+   /{{ item.hash }}/{{ item.build }}/openjdk-{{ item.v_major }}{{ item.v_minor }}_{{ item.os }}-{{ item.arch }}_bin.tar.gz"
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
@@ -35,7 +38,8 @@
 
 - name: Download Open JDK (11)
   get_url:
-   url: "https://download.java.net/java/ga/jdk{{ item.v_major }}/openjdk-{{ item.v_major }}_{{ item.os }}-{{ item.arch }}_bin.tar.gz"
+   url: "https://download.java.net/java/ga/jdk{{ item.v_major }}/openjdk-{{ item.v_major }}_{{ item.os }}\
+   -{{ item.arch }}_bin.tar.gz"
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
@@ -46,7 +50,8 @@
 
 - name: Download Open JDK (11.x.y, 12.x.y)
   get_url:
-   url: "https://download.java.net/java/GA/jdk{{ item.v_major }}/{{ item.build }}/GPL/openjdk-{{ item.v_major }}{{ item.v_minor }}_{{ item.os }}-{{ item.arch }}_bin.tar.gz"
+   url: "https://download.java.net/java/GA/jdk{{ item.v_major }}/{{ item.build }}/GPL/openjdk-{{ item.v_major }}\
+   {{ item.v_minor }}_{{ item.os }}-{{ item.arch }}_bin.tar.gz"
    dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    checksum: "{{ item.checksum }}"
   with_items: "{{ __java_packages }}"
