@@ -1,8 +1,9 @@
 # Ansible Linux based Java role
 
-![Docker Automated build](https://img.shields.io/docker/cloud/automated/kubecloudsas/ansible-role-java.svg?style=flat)
-![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/kubecloudsas/ansible-role-java.svg?style=flat)
+![Python](https://img.shields.io/pypi/pyversions/testinfra.svg?style=flat)
+![Licence](https://img.shields.io/github/license/kube-cloud/ansible-role-java.svg?style=flat)
 ![Travis Build](https://img.shields.io/travis/kube-cloud/ansible-role-java.svg?style=flat)
+
 
 Ansible role used to install Java (OpenJDK/Oracle JDK [not yet]) on Linux based Operating System.
 
