@@ -20,8 +20,11 @@ env:
 install:
 
     # Install Test tools
-    - pip install molecule docker
-    
+    - pip install molecule docker flake8
+
+    # Uninstall testinfra 1.19.0
+    - pip uninstall testinfra==1.19.0
+
     # Install testinfra 3.0.5
     - pip install testinfra==3.0.5
 
