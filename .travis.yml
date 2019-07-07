@@ -38,14 +38,14 @@ script:
 # Script to execute after the builds
 after_script:
 
-   # Move to parent directory
-   - cd ../
+    # Move to parent directory
+    - cd ../
 
-   # rename folder
-   - mv ansible-role-$ROLE_NAME $AUTHOR.$ROLE_NAME
-   
-   # Go back to directory
-   - cd $AUTHOR.$ROLE_NAME
+    # rename folder
+    - mv ansible-role-$ROLE_NAME $AUTHOR.$ROLE_NAME
+
+    # Go back to directory
+    - cd $AUTHOR.$ROLE_NAME
 
 # Norifications
 notifications:
