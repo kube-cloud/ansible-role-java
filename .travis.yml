@@ -21,6 +21,9 @@ install:
 
     # Install Test tools
     - pip install molecule docker
+    
+    # Install testinfra 3.0.5
+    - pip install testinfra==3.0.5
 
 # Test scripts
 script:
