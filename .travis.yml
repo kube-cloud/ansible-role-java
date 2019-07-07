@@ -22,11 +22,6 @@ install:
     # Install Test tools
     - pip install molecule docker
 
-before_script:
-    - cd ../
-    - mv ansible-role-$ROLE_NAME jetune.$ROLE_NAME
-    - cd jetune.$ROLE_NAME
-
 # Test scripts
 script:
 
