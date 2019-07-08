@@ -33,8 +33,6 @@
   unarchive:
    src: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
    dest: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk"
-
-   # Create allow idempotency capabilities to unarchive
    creates: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk/bin/java"
    remote_src: true
    extra_opts:
@@ -56,3 +54,21 @@
   when:
    - item[0].implementation is defined and item[0].implementation == "OPENJDK"
    - not item[0].from_repo
+
+- block:
+
+   - name: Make sure /etc/profile.d/ directory exists
+     file:
+      path: "/etc/profile.d/"
+      mode: 0755
+      state: directory
+
+   - name: Set the JAVA_HOME
+     template:
+      src: "templates/java_home.sh.j2"
+      dest: "/etc/profile.d/java_home.sh"
+      mode: a+x
+     with_items: "{{ __java_packages }}"
+     when:
+      - item.java_home
+      - not item.from_repo

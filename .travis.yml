@@ -35,18 +35,6 @@ script:
     # Run Tests
     - molecule test
 
-# Script to execute after the builds
-after_script:
-
-    # Move to parent directory
-    - cd ../
-
-    # rename folder
-    - mv ansible-role-$ROLE_NAME $AUTHOR.$ROLE_NAME
-
-    # Go back to directory
-    - cd $AUTHOR.$ROLE_NAME
-
 # Norifications
 notifications:
     webhooks: https://galaxy.ansible.com/api/v1/notifications/

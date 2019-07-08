@@ -26,6 +26,7 @@ __java_packages:
    date: 18_dec_2014
    checksum: md5:538acd35c6cf6977fa19d21ab2c17b0a
    alternative_priority: 200
+   java_home: false
 
  # JDK packages to install version 8 - update 40 - build 25
  - from_repo: false
@@ -38,6 +39,7 @@ __java_packages:
    date: 10_feb_2015
    checksum: md5:4980716637f353cfb27467d57f2faf9b
    alternative_priority: 300
+   java_home: false
 
  # JDK packages to install version 9 - update 0.4
  - from_repo: false
@@ -49,6 +51,7 @@ __java_packages:
    arch: x64
    checksum: sha256:39362fb9bfb341fcc802e55e8ea59f4664ca58fd821ce956d48e1aa4fb3d2dec
    alternative_priority: 400
+   java_home: false
 
  # JDK packages to install version 10
  - from_repo: false
@@ -60,6 +63,7 @@ __java_packages:
    arch: x64
    checksum: sha256:c851df838a51af52517b74e3a4b251d90c54cf478a4ebed99e7285ef134c3435
    alternative_priority: 500
+   java_home: false
 
  # JDK packages to install version 10 - update 0.2 - build 13
  - from_repo: false
@@ -72,6 +76,7 @@ __java_packages:
    arch: x64
    checksum: sha256:f3b26abc9990a0b8929781310e14a339a7542adfd6596afb842fa0dd7e3848b2
    alternative_priority: 600
+   java_home: false
 
  # JDK packages to install version 11
  - from_repo: false
@@ -83,6 +88,7 @@ __java_packages:
    arch: x64
    checksum: sha256:3784cfc4670f0d4c5482604c7c513beb1a92b005f569df9bf100e8bef6610f2e
    alternative_priority: 700
+   java_home: false
 
  # JDK packages to install version 11 - update 0.1 - build 13
  - from_repo: false
@@ -94,6 +100,7 @@ __java_packages:
    arch: x64
    checksum: sha256:7a6bb980b9c91c478421f865087ad2d69086a0583aeeb9e69204785e8e97dcfd
    alternative_priority: 800
+   java_home: true
 
  # JDK packages to install version 12 - build 33
  - from_repo: false
@@ -105,3 +112,4 @@ __java_packages:
    arch: x64
    checksum: sha256:b43bc15f4934f6d321170419f2c24451486bc848a2179af5e49d10721438dd56
    alternative_priority: 900
+   java_home: false
