@@ -22,7 +22,7 @@
 
 - name: Create Downloaded archive installation directories
   file:
-   path: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk"
+   path: "{{ install_dir | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) }}"
    state: directory
   with_items: "{{ __java_packages }}"
   when:
@@ -32,8 +32,9 @@
 - name: Unarchive Downloaded Open JDK archives
   unarchive:
    src: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
-   dest: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk"
-   creates: "{{ jvm_install_dir }}/java-{{ item.v_major }}{{ item.v_minor }}-openjdk/bin/java"
+   dest: "{{ install_dir | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) }}"
+   creates: "{{ install_dir | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) }}\
+   /bin/java"
    remote_src: true
    extra_opts:
     - --strip-components=1
@@ -46,29 +47,28 @@
   alternatives:
    name: "{{ item[1] }}"
    link: "/usr/bin/{{ item[1] }}"
-   path: "{{ jvm_install_dir }}/java-{{ item[0].v_major }}{{ item[0].v_minor }}-openjdk/bin/{{ item[1] }}"
+   path: "{{ install_dir | replace('$v_major', item[0].v_major) | replace('$v_minor', item[0].v_minor) }}\
+   /bin/{{ item[1] }}"
    priority: "{{ item[0].alternative_priority }}"
   with_nested:
    - "{{ __java_packages }}"
-   - ['java', 'javac', 'javadoc', 'jar', 'jarsigner', 'javap', 'jcmd', 'jconsole', 'keytool', 'rmiregistry', 'rmic', 'rmid']
+   - "{{ alternatives }}"
   when:
    - item[0].implementation is defined and item[0].implementation == "OPENJDK"
    - not item[0].from_repo
 
-- block:
+- name: Make sure /etc/profile.d/ directory exists
+  file:
+   path: "/etc/profile.d/"
+   mode: 0755
+   state: directory
 
-   - name: Make sure /etc/profile.d/ directory exists
-     file:
-      path: "/etc/profile.d/"
-      mode: 0755
-      state: directory
-
-   - name: Set the JAVA_HOME
-     template:
-      src: "templates/java_home.sh.j2"
-      dest: "/etc/profile.d/java_home.sh"
-      mode: a+x
-     with_items: "{{ __java_packages }}"
-     when:
-      - item.java_home
-      - not item.from_repo
+- name: Set the JAVA_HOME
+  template:
+   src: "templates/java_home.sh.j2"
+   dest: "/etc/profile.d/java_home.sh"
+   mode: a+x
+  with_items: "{{ __java_packages }}"
+  when:
+   - item.java_home
+   - not item.from_repo

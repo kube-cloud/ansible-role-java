@@ -40,9 +40,26 @@
 
 - name: Define installation directories for Debian family
   set_fact:
-   jvm_install_dir: "/usr/lib/jvm"
-
-- name: Ensure final JVM installation directory exists
-  file:
-   path: "{{ jvm_install_dir }}"
-   state: directory
+   install_dir: "/usr/lib/jvm/java-$v_major$v_minor-openjdk"
+   url_7_8: "https://download.java.net/openjdk/jdk$v_majoru$v_minor/ri/openjdk-$v_majoru\
+   $v_minor-b$build-$os-$arch-$date.tar.gz"
+   url_9x_10: "https://download.java.net/java/GA/jdk$v_major/$v_major$v_minor/binaries/openjdk\
+   -$v_major$v_minor_$os-$arch_bin.tar.gz"
+   url_10x: "https://download.java.net/java/GA/jdk$v_major/$v_major$v_minor/$hash/$build/\
+   openjdk-$v_major$v_minor_$os-$arch_bin.tar.gz"
+   url_11: "https://download.java.net/java/ga/jdk$v_major/openjdk-$v_major_$os-$arch_bin.tar.gz"
+   url_11x_12x: "https://download.java.net/java/GA/jdk$v_major/$build/GPL/openjdk-$v_major\
+   $v_minor_$os-$arch_bin.tar.gz"
+   alternatives:
+    - 'java'
+    - 'javac'
+    - 'javadoc'
+    - 'jar'
+    - 'jarsigner'
+    - 'javap'
+    - 'jcmd'
+    - 'jconsole'
+    - 'keytool'
+    - 'rmiregistry'
+    - 'rmic'
+    - 'rmid'
