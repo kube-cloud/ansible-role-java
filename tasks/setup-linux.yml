@@ -8,7 +8,7 @@
   when:
    - ansible_os_family == "RedHat"
    - item.implementation is defined and item.implementation == "OPENJDK"
-   - item.from_repo
+   - item.from_repo is defined and item.from_repo
 
 - name: Install Debian Based OpenJDK from Repo
   apt:
@@ -18,7 +18,7 @@
   when:
    - ansible_os_family == "Debian"
    - item.implementation is defined and item.implementation == "OPENJDK"
-   - item.from_repo
+   - item.from_repo is defined and item.from_repo
 
 - name: Create Downloaded archive installation directories
   file:
@@ -27,7 +27,7 @@
   with_items: "{{ __java_packages }}"
   when:
    - item.implementation is defined and item.implementation == "OPENJDK"
-   - not item.from_repo
+   - item[0].from_repo is not defined or not item[0].from_repo
 
 - name: Unarchive Downloaded Open JDK archives
   unarchive:
@@ -41,7 +41,7 @@
   with_items: "{{ __java_packages }}"
   when:
    - item.implementation is defined and item.implementation == "OPENJDK"
-   - not item.from_repo
+   - item[0].from_repo is not defined or not item[0].from_repo
 
 - name: Set the Java Alternatives
   alternatives:
@@ -55,7 +55,7 @@
    - "{{ alternatives }}"
   when:
    - item[0].implementation is defined and item[0].implementation == "OPENJDK"
-   - not item[0].from_repo
+   - item[0].from_repo is not defined or not item[0].from_repo
 
 - name: Make sure /etc/profile.d/ directory exists
   file:
@@ -70,5 +70,5 @@
    mode: a+x
   with_items: "{{ __java_packages }}"
   when:
-   - item.java_home
-   - not item.from_repo
+   - item.java_home is defined and item.java_home
+   - item.from_repo is not defined or not item.from_repo
