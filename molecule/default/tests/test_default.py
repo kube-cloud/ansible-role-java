@@ -39,7 +39,7 @@ def test_java_installed(host):
     assert java_home.is_directory
 
     # Execute the Java Home Script
-    assert host.run("source /etc/profile.d/java_home.sh").rc == 0
+    assert host.run(". /etc/profile.d/java_home.sh").rc == 0
 
     # Run Java version
     java_version_run = host.run('java -version')
