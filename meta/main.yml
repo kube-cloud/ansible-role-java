@@ -30,7 +30,7 @@ galaxy_info:
         - oracle
         - system
         - linux
-        - kube-cloud
+        - kubecloud
         - leadware
 
 dependencies: []
