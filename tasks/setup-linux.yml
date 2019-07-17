@@ -2,73 +2,62 @@
 
 - name: Install RedHat Based OpenJDK from Repo
   yum:
-   name: "java-1.{{ item.v_major }}.0-openjdk"
+   name: "java-1.{{ v_major }}.0-openjdk"
    state: present
-  with_items: "{{ __java_packages }}"
   when:
    - ansible_os_family == "RedHat"
-   - item.implementation is defined and item.implementation == "OPENJDK"
-   - item.from_repo is defined and item.from_repo
+   - jdk_implementation == "OPENJDK"
+   - jdk_from_repo
 
 - name: Install Debian Based OpenJDK from Repo
   apt:
-   name: "openjdk-{{ item.v_major }}-jdk"
+   name: "openjdk-{{ v_major }}-jdk"
    state: present
-  with_items: "{{ __java_packages }}"
   when:
    - ansible_os_family == "Debian"
-   - item.implementation is defined and item.implementation == "OPENJDK"
-   - item.from_repo is defined and item.from_repo
+   - jdk_implementation == "OPENJDK"
+   - jdk_from_repo
 
 - name: Create Downloaded archive installation directories
   file:
-   path: "{{ install_dir | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) }}"
+   path: "{{ install_dir }}"
    state: directory
-  with_items: "{{ __java_packages }}"
   when:
-   - item.implementation is defined and item.implementation == "OPENJDK"
-   - item[0].from_repo is not defined or not item[0].from_repo
+   - jdk_implementation == "OPENJDK"
+   - not jdk_from_repo
 
 - name: Unarchive Downloaded Open JDK archives
   unarchive:
-   src: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
-   dest: "{{ install_dir | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) }}"
-   creates: "{{ install_dir | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) }}\
-   /bin/java"
+   src: "{{ downloaded_file }}"
+   dest: "{{ install_dir }}"
+   creates: "{{ install_dir }}/bin/java"
    remote_src: true
    extra_opts:
     - --strip-components=1
-  with_items: "{{ __java_packages }}"
   when:
-   - item.implementation is defined and item.implementation == "OPENJDK"
-   - item[0].from_repo is not defined or not item[0].from_repo
+   - jdk_implementation == "OPENJDK"
+   - not jdk_from_repo
 
-- name: Set the Java Alternatives
+- name: Set the Java Alternatives (Default JDK = {{ jdk_default }})
   alternatives:
-   name: "{{ item[1] }}"
-   link: "/usr/bin/{{ item[1] }}"
-   path: "{{ install_dir | replace('$v_major', item[0].v_major) | replace('$v_minor', item[0].v_minor) }}\
-   /bin/{{ item[1] }}"
-   priority: "{{ item[0].alternative_priority }}"
-  with_nested:
-   - "{{ __java_packages }}"
-   - "{{ alternatives }}"
-  when:
-   - item[0].implementation is defined and item[0].implementation == "OPENJDK"
-   - item[0].from_repo is not defined or not item[0].from_repo
+   name: "{{ item }}"
+   link: "/usr/bin/{{ item }}"
+   path: "{{ install_dir }}/bin/{{ item }}"
+   priority: "{{ alternative_priority }}"
+  with_items: "{{ alternatives }}"
 
 - name: Make sure /etc/profile.d/ directory exists
   file:
    path: "/etc/profile.d/"
    mode: 0755
    state: directory
+  when:
+   - jdk_default
 
-- name: Set the JAVA_HOME
+- name: Set the JAVA_HOME (Default JDK = {{ jdk_default }})
   template:
    src: "templates/java_home.sh.j2"
    dest: "/etc/profile.d/java_home.sh"
    mode: a+x
-  with_items: "{{ __java_packages }}"
   when:
-   - item.java_home is defined and item.java_home
-   - item.from_repo is not defined or not item.from_repo
+   - jdk_default

@@ -1,62 +1,10 @@
 ---
 
-- name: Download Open JDK (7ux or 8ux)
+- name: Download Open JDK ( URL = {{ url }}, DEST = {{ downloaded_file }}, CHECK = {{ checksum }})
   get_url:
-   url: "{{ url_7_8 | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) | \
-   replace('$build', item.build) | replace('$os', item.os) | replace('$arch', item.arch) | \
-   replace('$date', item.date) }}"
-   dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
-   checksum: "{{ item.checksum }}"
-  with_items: "{{ __java_packages }}"
+   url: "{{ url }}"
+   dest: "{{ downloaded_file }}"
+   checksum: "{{ checksum }}"
   when:
-   - item.v_major|int == 8 or item.v_major|int == 7
-   - item.implementation is defined and item.implementation == "OPENJDK"
-   - item.from_repo is not defined or not item.from_repo
-
-- name: Download Open JDK (9.x.y and 10)
-  get_url:
-   url: "{{ url_9x_10 | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) \
-   | replace('$os', item.os) | replace('$arch', item.arch) }}"
-   dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
-   checksum: "{{ item.checksum }}"
-  with_items: "{{ __java_packages }}"
-  when:
-   - item.v_major|int == 9 or (item.v_major|int == 10 and not item.v_minor)
-   - item.implementation is defined and item.implementation == "OPENJDK"
-   - item.from_repo is not defined or not item.from_repo
-
-- name: Download Open JDK (10.x.y)
-  get_url:
-   url: "{{ url_10x | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) | \
-   replace('$build', item.build) | replace('$os', item.os) | replace('$arch', item.arch) | \
-   replace('$hash', item.hash) }}"
-   dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
-   checksum: "{{ item.checksum }}"
-  with_items: "{{ __java_packages }}"
-  when:
-   - item.v_major|int == 10 and item.v_minor
-   - item.implementation is defined and item.implementation == "OPENJDK"
-   - item.from_repo is not defined or not item.from_repo
-
-- name: Download Open JDK (11)
-  get_url:
-   url: "{{ url_11 | replace('$v_major', item.v_major) | replace('$os', item.os) | replace('$arch', item.arch) }}"
-   dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
-   checksum: "{{ item.checksum }}"
-  with_items: "{{ __java_packages }}"
-  when:
-   - item.v_major|int == 11 and not item.v_minor
-   - item.implementation is defined and item.implementation == "OPENJDK"
-   - item.from_repo is not defined or not item.from_repo
-
-- name: Download Open JDK (11.x.y, 12.x.y)
-  get_url:
-   url: "{{ url_11x_12x | replace('$v_major', item.v_major) | replace('$v_minor', item.v_minor) | \
-   replace('$build', item.build) | replace('$os', item.os) | replace('$arch', item.arch) }}"
-   dest: "/tmp/openjdk-{{ item.v_major }}{{ item.v_minor }}.tar.gz"
-   checksum: "{{ item.checksum }}"
-  with_items: "{{ __java_packages }}"
-  when:
-   - (item.v_major|int == 11 and item.v_minor) or item.v_major|int == 12
-   - item.implementation is defined and item.implementation == "OPENJDK"
-   - item.from_repo is not defined or not item.from_repo
+   - jdk_implementation == "OPENJDK"
+   - not jdk_from_repo
