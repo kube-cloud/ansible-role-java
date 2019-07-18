@@ -8,29 +8,12 @@ lint:
     options:
         config-file: molecule/openjdk11/yaml-lint.yml
 platforms:
-    - name: CentOS7
-      image: "kubecloudsas/docker-ansible-test:centos7"
+    - name: OSPlatform
+      image: "kubecloudsas/docker-ansible-test:${MOLECULE_DISTRO:-centos7}"
       command: ${MOLECULE_DOCKER_COMMAND:-""}
       volumes:
           - /sys/fs/cgroup:/sys/fs/cgroup:ro
       privileged: true
-      pre_build_image: true
-
-    - name: Ubuntu16
-      image: "kubecloudsas/docker-ansible-test:ubuntu16"
-      command: ${MOLECULE_DOCKER_COMMAND:-""}
-      volumes:
-          - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      privileged: true
-      pre_build_image: true
-
-    - name: Ubuntu18
-      image: "kubecloudsas/docker-ansible-test:ubuntu18"
-      command: ${MOLECULE_DOCKER_COMMAND:-""}
-      volumes:
-          - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      privileged: true
-      pre_build_image: true
 
 provisioner:
     name: ansible
