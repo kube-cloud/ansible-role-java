@@ -8,7 +8,7 @@ lint:
     options:
         config-file: molecule/openjdk11/yaml-lint.yml
 platforms:
-    - name: OSPlatform
+    - name: ${MOLECULE_DISTRO:-centos7}
       image: "kubecloudsas/docker-ansible-test:${MOLECULE_DISTRO:-centos7}"
       command: ${MOLECULE_DOCKER_COMMAND:-""}
       volumes:
