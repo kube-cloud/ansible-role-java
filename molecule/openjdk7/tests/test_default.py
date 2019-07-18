@@ -9,10 +9,10 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 def test_java_installed(host):
 
     # Java expected version major
-    java_major = '11'
+    java_major = '7'
 
     # Java expected version minor
-    java_minor = '0.1'
+    java_minor = '75'
 
     # Java expected version
     java_version = java_major + '.' + java_minor

@@ -8,8 +8,14 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 def test_java_installed(host):
 
+    # Java expected version major
+    java_major = '8'
+
+    # Java expected version minor
+    java_minor = '40'
+
     # Java expected version
-    java_version = '8.40'
+    java_version = java_major + '.' + java_minor
 
     # Java expected implementation
     java_impl = 'openjdk'
@@ -60,8 +66,11 @@ def test_java_installed(host):
     # Get Java implementation
     java_impl_ext = java_version_run.stderr.split('\n')[0].split(' ')[0]
 
-    # Assert that version is Java 8
-    assert java_version_ext == "\"{}\"".format(java_version)
+    # Assert on version major
+    assert java_version_ext.find(java_major) >= 0
+
+    # Assert on version minor
+    assert java_version_ext.find(java_minor) >= 0
 
     # Assert that version is Java implementation is OpenJDK
     assert java_impl_ext == java_impl

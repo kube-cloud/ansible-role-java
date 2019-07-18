@@ -30,7 +30,7 @@ install:
 script:
 
     # Run Tests
-    - molecule test
+    - molecule test --all
 
 # Norifications
 notifications:
