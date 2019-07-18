@@ -1,0 +1,17 @@
+---
+- name: Converge OpenJDK 8
+  hosts: all
+  roles:
+   - role: ansible-role-java
+     vars:
+      from_repo: false
+      implementation: OPENJDK
+      v_major: 8
+      v_minor: 40
+      build: 25
+      os: linux
+      arch: x64
+      date: 10_feb_2015
+      checksum: md5:4980716637f353cfb27467d57f2faf9b
+      alternative_priority: 200
+      is_default: true
