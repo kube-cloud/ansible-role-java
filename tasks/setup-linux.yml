@@ -1,6 +1,6 @@
 ---
 
-- name: Install RedHat Based OpenJDK from Repo
+- name: [{{ ansible_distribution }}] Install RedHat Based OpenJDK from Repo
   yum:
    name: "java-1.{{ v_major }}.0-openjdk"
    state: present
@@ -9,7 +9,7 @@
    - jdk_implementation == "OPENJDK"
    - jdk_from_repo
 
-- name: Install Debian Based OpenJDK from Repo
+- name: [{{ ansible_distribution }}] Install Debian Based OpenJDK from Repo
   apt:
    name: "openjdk-{{ v_major }}-jdk"
    state: present
@@ -18,7 +18,7 @@
    - jdk_implementation == "OPENJDK"
    - jdk_from_repo
 
-- name: Create Downloaded archive installation directories
+- name: [{{ ansible_distribution }}] Create Downloaded archive installation directories
   file:
    path: "{{ install_dir }}"
    state: directory
@@ -26,7 +26,7 @@
    - jdk_implementation == "OPENJDK"
    - not jdk_from_repo
 
-- name: Unarchive Downloaded Open JDK archives
+- name: [{{ ansible_distribution }}] Unarchive Downloaded Open JDK archives
   unarchive:
    src: "{{ downloaded_file }}"
    dest: "{{ install_dir }}"
@@ -38,7 +38,7 @@
    - jdk_implementation == "OPENJDK"
    - not jdk_from_repo
 
-- name: Set the Java Alternatives (Default JDK = {{ jdk_default }})
+- name: [{{ ansible_distribution }}] Set the Java Alternatives (Default JDK = {{ jdk_default }})
   alternatives:
    name: "{{ item }}"
    link: "/usr/bin/{{ item }}"
@@ -46,7 +46,7 @@
    priority: "{{ alternative_priority }}"
   with_items: "{{ alternatives }}"
 
-- name: Make sure /etc/profile.d/ directory exists
+- name: [{{ ansible_distribution }}] Make sure /etc/profile.d/ directory exists
   file:
    path: "/etc/profile.d/"
    mode: 0755
@@ -54,7 +54,7 @@
   when:
    - jdk_default
 
-- name: Set the JAVA_HOME (Default JDK = {{ jdk_default }})
+- name: [{{ ansible_distribution }}] Set the JAVA_HOME (Default JDK = {{ jdk_default }})
   template:
    src: "templates/java_home.sh.j2"
    dest: "/etc/profile.d/java_home.sh"

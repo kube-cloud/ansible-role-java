@@ -1,6 +1,6 @@
 ---
 
-- name: Download Open JDK ( URL = {{ url }}, DEST = {{ downloaded_file }}, CHECK = {{ checksum }})
+- name: [{{ ansible_distribution }}] Download Open JDK ( URL = {{ url }}, DEST = {{ downloaded_file }})
   get_url:
    url: "{{ url }}"
    dest: "{{ downloaded_file }}"

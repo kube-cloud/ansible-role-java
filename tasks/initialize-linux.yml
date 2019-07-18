@@ -1,6 +1,6 @@
 ---
 
-- name: Add Debian based requested repositories if exists
+- name: [{{ ansible_distribution }}] Add Debian based requested repositories if exists
   apt_repository:
    repo: "{{ item.repo }}"
    state: present
@@ -13,7 +13,7 @@
    - ansible_os_family == "Debian"
    - item.v_major == ansible_distribution_major_version
 
-- name: Add RedHat based requested repositories if exists
+- name: [{{ ansible_distribution }}] Add RedHat based requested repositories if exists
   yum_repository:
    name: "{{ item.name }}"
    baseurl: "{{ item.repo }}"
@@ -38,7 +38,7 @@
    - ansible_os_family == "RedHat"
    - item.v_major == ansible_distribution_major_version
 
-- name: Check Java required parameters (v_major, os, arch, checksum")
+- name: [{{ ansible_distribution }}] Check Java required parameters (v_major, os, arch, checksum")
   fail:
    msg: "Vérifier les paramètres obligatoires : (v_major, os, arch, checksum)"
   when: >
@@ -48,14 +48,14 @@
    arch is not defined or
    checksum is not defined
 
-- name: Check Java required parameter for Java 7 or 8
+- name: [{{ ansible_distribution }}] Check Java required parameter for Java 7 or 8
   fail:
    msg: "Vérifier les paramètres obligatoire des version 7 et 8 : date"
   when:
    - v_major|int == 8 or v_major|int == 7
    - date is not defined
 
-- name: Check Java required parameter for Java 10
+- name: [{{ ansible_distribution }}] Check Java required parameter for Java 10
   fail:
    msg: "Vérifier les paramètres obligatoire de la version 10 : hash"
   when:
@@ -83,28 +83,28 @@
     - 'rmic'
     - 'rmid'
 
-- name: Define Download URL for version 7x or 8x
+- name: [{{ ansible_distribution }}] Define Download URL for version 7x or 8x
   set_fact:
    url: "https://download.java.net/openjdk/jdk{{ v_major }}u{{ v_minor }}/ri/openjdk-\
    {{ v_major }}u{{ v_minor }}-b{{ build }}-{{ os }}-{{ arch }}-{{ date }}.tar.gz"
   when:
    - v_major|int == 8 or v_major|int == 7
 
-- name: Define Download URL for version 9x
+- name: [{{ ansible_distribution }}] Define Download URL for version 9x
   set_fact:
    url: "https://download.java.net/java/GA/jdk{{ v_major }}/{{ v_major }}.{{ v_minor }}\
    /binaries/openjdk-{{ v_major }}.{{ v_minor }}_{{ os }}-{{ arch }}_bin.tar.gz"
   when:
    - v_major|int == 9
 
-- name: Define Download URL for version 10x
+- name: [{{ ansible_distribution }}] Define Download URL for version 10x
   set_fact:
    url: "https://download.java.net/java/GA/jdk{{ v_major }}/{{ v_major }}.{{ v_minor }}\
    /{{ hash }}/{{ build }}/openjdk-{{ v_major }}.{{ v_minor }}_{{ os }}-{{ arch }}_bin.tar.gz"
   when:
    - v_major|int == 10
 
-- name: Define Download URL for version 11x et 12x
+- name: [{{ ansible_distribution }}] Define Download URL for version 11x et 12x
   set_fact:
    url: "https://download.java.net/java/GA/jdk{{ v_major }}/{{ build }}/GPL/openjdk-\
    {{ v_major }}.{{ v_minor }}_{{ os }}-{{ arch }}_bin.tar.gz"
