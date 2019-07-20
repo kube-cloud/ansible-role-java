@@ -3,6 +3,9 @@
 ![Python](https://img.shields.io/pypi/pyversions/testinfra.svg?style=flat)
 ![Licence](https://img.shields.io/github/license/kube-cloud/ansible-role-java.svg?style=flat)
 [![Travis Build](https://img.shields.io/travis/kube-cloud/ansible-role-java.svg?style=flat)](https://travis-ci.com/kube-cloud/ansible-role-java)
+[![Galaxy Role Downloads](https://img.shields.io/ansible/role/d/41825.svg?style=flat)](https://galaxy.ansible.com/jetune/java)
+
+
 
 Ansible role used to install Java (OpenJDK/Oracle JDK [not yet]) on Linux based Operating System.
 <a href="https://www.kube-cloud.com/"><img width="300" src="https://kube-cloud.com/images/branding/logo/kubecloud-logo-single_writing_horizontal_color_300x112px.png" /></a>
