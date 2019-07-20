@@ -14,9 +14,16 @@ env:
         - ROLE_NAME: java
         - AUTHOR: jetune
     matrix:
+        - MOLECULE_DISTRO: centos6
         - MOLECULE_DISTRO: centos7
         - MOLECULE_DISTRO: ubuntu16
         - MOLECULE_DISTRO: ubuntu18
+
+before_install:
+    - docker pull kubecloudsas/docker-ansible-test:centos6
+    - docker pull kubecloudsas/docker-ansible-test:centos7
+    - docker pull kubecloudsas/docker-ansible-test:ubuntu16
+    - docker pull kubecloudsas/docker-ansible-test:ubuntu18
 
 # Installation actions
 install:
