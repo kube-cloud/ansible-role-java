@@ -61,3 +61,17 @@
    mode: a+x
   when:
    - jdk_default
+
+- name: ({{ ansible_distribution }}) Set the JAVA_HOME in environment (Default JDK = {{ jdk_default }})
+  lineinfile:
+   dest: "/etc/environment"
+   regexp: "JAVA_HOME="
+   line: "JAVA_HOME={{ install_dir }}"
+  when:
+   - jdk_default
+
+- name: ({{ ansible_distribution }}) Set the JAVA_HOME{{ v_major }} in environment (Default JDK = {{ jdk_default }})
+  lineinfile:
+   dest: "/etc/environment"
+   regexp: "JAVA_HOME{{ v_major }}="
+   line: "JAVA_HOME{{ v_major }}={{ install_dir }}"
