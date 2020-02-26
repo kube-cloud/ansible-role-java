@@ -1,8 +1,1 @@
 ---
-# Reload Environment
-- name: reload environment
-  shell:
-  args:
-   cmd: "source /etc/environment"
-   warn: true
-  changed_when: false
