@@ -81,6 +81,6 @@
   args: "/etc/environment"
    cmd: "export JAVA_HOME={{ install_dir }}"
   tags:
-    - molecule-idempotence-notest
+   - molecule-idempotence-notest
 
 
