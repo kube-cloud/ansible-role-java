@@ -78,9 +78,7 @@
 
 - name: ({{ ansible_distribution }}) Export JAVA_HOME
   shell:
-  args: "/etc/environment"
+  args:
    cmd: "export JAVA_HOME={{ install_dir }}"
   tags:
    - molecule-idempotence-notest
-
-
