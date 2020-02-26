@@ -75,3 +75,4 @@
    dest: "/etc/environment"
    regexp: "JAVA_HOME{{ v_major }}="
    line: "JAVA_HOME{{ v_major }}={{ install_dir }}"
+  notify: reload environment
