@@ -13,4 +13,5 @@
       arch: x64
       checksum: sha256:7a6bb980b9c91c478421f865087ad2d69086a0583aeeb9e69204785e8e97dcfd
       alternative_priority: 100
+      cacerts_override: false
       is_default: true

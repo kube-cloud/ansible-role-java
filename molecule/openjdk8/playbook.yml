@@ -14,4 +14,6 @@
       date: 10_feb_2015
       checksum: md5:4980716637f353cfb27467d57f2faf9b
       alternative_priority: 200
+      cacerts_override: true
+      cacerts_path: "jks/cacerts"
       is_default: true

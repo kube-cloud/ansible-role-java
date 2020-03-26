@@ -12,3 +12,9 @@ v_major: 8
 alternative_priority: 100
 implementation: OPENJDK
 is_default: false
+
+# JDK Security cacert overrite
+cacerts_override: "{{ from_repo | bool }}"
+
+# JDK Security cacert overrite
+cacerts_path: "security/cacerts"

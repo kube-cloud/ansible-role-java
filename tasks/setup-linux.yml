@@ -62,6 +62,15 @@
   when:
    - jdk_default
 
+- name: ({{ ansible_distribution }}) Override the default cacerts (Default = {{ default_cacerts_file }})
+  copy:
+   src: "{{ cacerts_path }}"
+   dest: "{{ default_cacerts_file }}"
+   mode: u+rw-x,g+r-wx,o+r-wx
+   force: true
+  when:
+   - cacerts_override
+
 - name: ({{ ansible_distribution }}) Set the JAVA_HOME in environment (Default JDK = {{ jdk_default }})
   lineinfile:
    dest: "/etc/environment"

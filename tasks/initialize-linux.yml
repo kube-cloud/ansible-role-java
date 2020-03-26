@@ -69,6 +69,7 @@
    jdk_implementation: "{{ implementation | default('OPENJDK') }}"
    jdk_default: "{{ is_default | default(true) }}"
    jdk_from_repo: "{{ from_repo | default(false) }}"
+   default_cacerts_password: "changeit"
    alternatives:
     - 'java'
     - 'javac'
@@ -87,6 +88,7 @@
   set_fact:
    url: "https://download.java.net/openjdk/jdk{{ v_major }}u{{ v_minor }}/ri/openjdk-\
    {{ v_major }}u{{ v_minor }}-b{{ build }}-{{ os }}-{{ arch }}-{{ date }}.tar.gz"
+   default_cacerts_file: "{{ install_dir }}/jre/lib/security/cacerts"
   when:
    - v_major|int == 8 or v_major|int == 7
 
@@ -94,6 +96,7 @@
   set_fact:
    url: "https://download.java.net/java/GA/jdk{{ v_major }}/{{ v_major }}.{{ v_minor }}\
    /binaries/openjdk-{{ v_major }}.{{ v_minor }}_{{ os }}-{{ arch }}_bin.tar.gz"
+   default_cacerts_file: "{{ install_dir }}/lib/security/cacerts"
   when:
    - v_major|int == 9
 
@@ -101,6 +104,7 @@
   set_fact:
    url: "https://download.java.net/java/GA/jdk{{ v_major }}/{{ v_major }}.{{ v_minor }}\
    /{{ hash }}/{{ build }}/openjdk-{{ v_major }}.{{ v_minor }}_{{ os }}-{{ arch }}_bin.tar.gz"
+   default_cacerts_file: "{{ install_dir }}/lib/security/cacerts"
   when:
    - v_major|int == 10
 
@@ -108,5 +112,6 @@
   set_fact:
    url: "https://download.java.net/java/GA/jdk{{ v_major }}/{{ build }}/GPL/openjdk-\
    {{ v_major }}.{{ v_minor }}_{{ os }}-{{ arch }}_bin.tar.gz"
+   default_cacerts_file: "{{ install_dir }}/lib/security/cacerts"
   when:
    - v_major|int == 11 or v_major|int == 12
