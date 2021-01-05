@@ -6,8 +6,8 @@ driver:
 lint: |
     yamllint .
 platforms:
-    - name: ${MOLECULE_DISTRO:-centos7}
-      image: "kubecloudsas/docker-ansible-test:${MOLECULE_DISTRO:-centos7}"
+    - name: ${MOLECULE_NAME:-bionic}
+      image: "${MOLECULE_DISTRO:-kubecloudsas/docker-ansible-test:v1.1.0-xenial-py3}"
       command: ${MOLECULE_DOCKER_COMMAND:-""}
       volumes:
           - /sys/fs/cgroup:/sys/fs/cgroup:ro

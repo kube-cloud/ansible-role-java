@@ -14,7 +14,7 @@ implementation: OPENJDK
 is_default: false
 
 # JDK Security cacert overrite
-cacerts_override: "{{ from_repo | bool }}"
+cacerts_override: false
 
 # JDK Security cacert overrite
-cacerts_path: "security/cacerts"
+cacerts_path: ""
