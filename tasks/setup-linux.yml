@@ -7,7 +7,7 @@
   when:
    - ansible_os_family == "RedHat"
    - jdk_implementation == "OPENJDK"
-   - jdk_from_repo
+   - jdk_from_repo|bool
 
 - name: ({{ ansible_distribution }}) Install Debian Based OpenJDK from Repo
   apt:
@@ -16,7 +16,7 @@
   when:
    - ansible_os_family == "Debian"
    - jdk_implementation == "OPENJDK"
-   - jdk_from_repo
+   - jdk_from_repo|bool
 
 - name: ({{ ansible_distribution }}) Create Downloaded archive installation directories
   file:
@@ -24,7 +24,7 @@
    state: directory
   when:
    - jdk_implementation == "OPENJDK"
-   - not jdk_from_repo
+   - not jdk_from_repo|bool
 
 - name: ({{ ansible_distribution }}) Unarchive Downloaded Open JDK archives
   unarchive:
@@ -36,7 +36,7 @@
     - --strip-components=1
   when:
    - jdk_implementation == "OPENJDK"
-   - not jdk_from_repo
+   - not jdk_from_repo|bool
 
 - name: ({{ ansible_distribution }}) Set the Java Alternatives (Default JDK = {{ jdk_default }})
   alternatives:
@@ -52,7 +52,7 @@
    mode: 0755
    state: directory
   when:
-   - jdk_default
+   - jdk_default|bool
 
 - name: ({{ ansible_distribution }}) Set the JAVA_HOME (Default JDK = {{ jdk_default }})
   template:
@@ -60,7 +60,7 @@
    dest: "/etc/profile.d/java_home.sh"
    mode: a+x
   when:
-   - jdk_default
+   - jdk_default|bool
 
 - name: ({{ ansible_distribution }}) Override the default cacerts (Default = {{ default_cacerts_file }})
   copy:
