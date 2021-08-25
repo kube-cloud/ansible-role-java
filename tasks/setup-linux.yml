@@ -67,6 +67,7 @@
    src: "{{ cacerts_path }}"
    dest: "{{ default_cacerts_file }}"
    mode: u+rw-x,g+r-wx,o+r-wx
+   remote_src: "{{ remote_cacerts_path |bool }}"
    force: true
   when:
    - cacerts_override
