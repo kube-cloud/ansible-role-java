@@ -50,6 +50,7 @@
    msg: "Vérifier les paramètres obligatoire des version 7 et 8 : date"
   when:
    - v_major|int == 8 or v_major|int == 7
+   - not from_repo|bool
    - date is not defined
 
 - name: ({{ ansible_distribution }}) Check Java required parameter for Java 10
@@ -57,6 +58,7 @@
    msg: "Vérifier les paramètres obligatoire de la version 10 : hash"
   when:
    - v_major|int == 10
+   - not from_repo|bool
    - hash is not defined
 
 - name: Define installation directories for Debian family
