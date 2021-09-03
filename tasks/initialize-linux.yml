@@ -43,10 +43,7 @@
    msg: "Vérifier les paramètres obligatoires : (v_major, os, arch, checksum)"
   when: >
    v_major is not defined or
-   os is not defined or
-   os is not defined or
-   arch is not defined or
-   checksum is not defined
+   (not from_repo|bool and (os is not defined or arch is not defined or checksum is not defined))
 
 - name: ({{ ansible_distribution }}) Check Java required parameter for Java 7 or 8
   fail:
