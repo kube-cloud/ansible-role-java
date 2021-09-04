@@ -4,7 +4,7 @@
 __repositories:
  - repo: ppa:openjdk-r/ppa
    os: Debian
-   v_major: 18
+   v_major: 8
 
 # JDK packages to install from repo version 8
 from_repo: true
