@@ -63,8 +63,8 @@
 
 - name: Define installation directories for Debian family
   set_fact:
-   install_dir: "/usr/lib/jvm/java-{{ v_major }}.{{ v_minor }}-openjdk"
-   downloaded_file: "/tmp/openjdk-{{ v_major }}.{{ v_minor }}.tar.gz"
+   install_dir: "/usr/lib/jvm/java-{{ v_major }}-openjdk"
+   downloaded_file: "/tmp/openjdk-{{ v_major }}.tar.gz"
    jdk_implementation: "{{ implementation | default('OPENJDK') }}"
    jdk_default: "{{ is_default | default(true) }}"
    jdk_from_repo: "{{ from_repo | default(false) }}"
