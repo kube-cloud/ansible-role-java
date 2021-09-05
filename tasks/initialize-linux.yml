@@ -83,7 +83,7 @@
     - 'rmic'
     - 'rmid'
 
-- name: ({{ ansible_distribution }}) Define Download URL for version 7x or 8x
+- name: ({{ ansible_distribution }}) Define Download URL for 7x or 8x (Major = {{ v_major }}, Minor = {{ v_minor }} )
   set_fact:
    url: "https://download.java.net/openjdk/jdk{{ v_major }}u{{ v_minor }}/ri/openjdk-\
    {{ v_major }}u{{ v_minor }}-b{{ build }}-{{ os }}-{{ arch }}-{{ date }}.tar.gz"
